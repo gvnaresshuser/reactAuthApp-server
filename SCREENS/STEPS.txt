@@ -1,0 +1,172 @@
+https://neon.com/
+gvnaressh@gmail.com
+
+reactAuthApp
+
+connection pool:
+---------------
+postgresql://neondb_owner:npg_5UgQJnAsfRw1@ep-nameless-resonance-aulf1smd-pooler.c-10.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+
+without connection pool:
+------------------------
+postgresql://neondb_owner:npg_5UgQJnAsfRw1@ep-nameless-resonance-aulf1smd.c-10.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+
+-------------------------------------
+Microsoft Windows [Version 10.0.26100.8246]
+(c) Microsoft Corporation. All rights reserved.
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>npm init -y
+Wrote to E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server\package.json:
+
+{
+  "name": "reactauthapp-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
+
+
+change "type": "commonjs" to "type": "module"
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>
+-------------------------------------
+
+Express Folder Structure
+
+server
+
+│
+
+├── config
+│      db.js
+│      jwt.js
+│
+├── middleware
+│      authMiddleware.js
+│      errorMiddleware.js
+│      validateMiddleware.js
+│
+├── controllers
+│      authController.js
+│      productController.js
+│
+├── services
+│      authService.js
+│      productService.js
+│
+├── routes
+│      authRoutes.js
+│      productRoutes.js
+│
+├── utils
+│      generateToken.js
+│      generateRefreshToken.js
+│
+├── validators
+│      authValidator.js
+│      productValidator.js
+│
+├── app.js
+│
+└── server.js
+
+
+npm init -y
+npm install express pg dotenv cors helmet cookie-parser bcrypt jsonwebtoken express-rate-limit express-validator compression hpp morgan
+
+npm install --save-dev nodemon
+
+npm run dev
+----------------
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>npm run dev
+
+> reactauthapp-server@1.0.0 dev
+> nodemon server.js
+
+[nodemon] 3.1.14
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,cjs,json
+[nodemon] starting `node server.js`
+◇ injected env (8) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+
+=====================================
+🚀 Product API Started Successfully
+=====================================
+Server : http://localhost:5000
+Mode   : development
+=====================================
+
+
+----------------
+http://localhost:5000
+
+object
+{2}
+success
+:
+true
+message
+:
+"Product API is running."
+
+
+BEFORE SEEDING ... RUN schema.sql IN NEON SQL EDITOR...
+
+NOW RUN Seeding
+
+************
+npm run seed
+************
+
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>npm run seed
+
+> reactauthapp-server@1.0.0 seed
+> node database/seed.js
+
+◇ injected env (8) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+postgresql://neondb_owner:npg_5UgQJnAsfRw1@ep-nameless-resonance-aulf1smd-pooler.c-10.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+🌱 Seeding database...
+
+(node:18108) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✅ Database seeded successfully.
+
+Admin Login
+---------------------------
+Email    : admin@gmail.com
+Password : admin123
+---------------------------
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>
+
+echo "# reactAuthApp-server" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/gvnaresshuser/reactAuthApp-server.git
+git push -u origin main
+
+git remote add origin https://github.com/gvnaresshuser/reactAuthApp-server.git
+git branch -M main
+git push -u origin main
+
+git add .
+git commit -m "Project setup, Neon database, schema and seed data completed"
