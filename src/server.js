@@ -12,17 +12,10 @@ const startServer = async () => {
   try {
     await pool.query("SELECT NOW()");
 
-    console.log("Database Connected Successfully.");
+    console.log("✅ PostgreSQL Connected");
 
     app.listen(PORT, () => {
-      console.log(`
-====================================
-🚀 Server Started Successfully
-====================================
-URL  : http://localhost:${PORT}
-Mode : ${process.env.NODE_ENV}
-====================================
-`);
+      console.log(`🚀 Server running on port ${PORT}`);
     });
   } catch (error) {
     console.error(error);

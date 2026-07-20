@@ -39,43 +39,66 @@ E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>
 -------------------------------------
 
 Express Folder Structure
+server/
 
-server
-
 │
-
-├── config
-│      db.js
-│      jwt.js
+├── database/
+│      schema.sql
+│      seed.js
 │
-├── middleware
-│      authMiddleware.js
-│      errorMiddleware.js
-│      validateMiddleware.js
+├── src/
 │
-├── controllers
-│      authController.js
-│      productController.js
+│   ├── config/
+│   │      db.js
+│   │      jwt.js
+│   │
+│   ├── constants/
+│   │      roles.js
+│   │      messages.js
+│   │
+│   ├── controllers/
+│   │      authController.js
+│   │      productController.js
+│   │
+│   ├── helpers/
+│   │      asyncHandler.js
+│   │
+│   ├── middleware/
+│   │      authMiddleware.js
+│   │      roleMiddleware.js
+│   │      validateMiddleware.js
+│   │      errorMiddleware.js
+│   │      notFoundMiddleware.js
+│   │
+│   ├── repositories/
+│   │      userRepository.js
+│   │      productRepository.js
+│   │      refreshTokenRepository.js
+│   │
+│   ├── routes/
+│   │      authRoutes.js
+│   │      productRoutes.js
+│   │
+│   ├── services/
+│   │      authService.js
+│   │      productService.js
+│   │
+│   ├── utils/
+│   │      apiResponse.js
+│   │      generateToken.js
+│   │      generateRefreshToken.js
+│   │      cookieOptions.js
+│   │
+│   ├── validators/
+│   │      authValidator.js
+│   │      productValidator.js
+│   │
+│   ├── app.js
+│   └── server.js
 │
-├── services
-│      authService.js
-│      productService.js
-│
-├── routes
-│      authRoutes.js
-│      productRoutes.js
-│
-├── utils
-│      generateToken.js
-│      generateRefreshToken.js
-│
-├── validators
-│      authValidator.js
-│      productValidator.js
-│
-├── app.js
-│
-└── server.js
+├── .env
+├── package.json
+└── README.md
 
 
 npm init -y
@@ -181,25 +204,384 @@ git remote add origin https://github.com/gvnaresshuser/reactAuthApp-server.git
 git push -u origin main
 
 
+Final Backend Structure
+
+server/
+
+│
+├── database/
+│      schema.sql
+│      seed.js
+│
+├── src/
+│
+│   ├── config/
+│   │      db.js
+│   │      jwt.js
+│   │
+│   ├── constants/
+│   │      roles.js
+│   │      messages.js
+│   │
+│   ├── controllers/
+│   │      authController.js
+│   │      productController.js
+│   │
+│   ├── helpers/
+│   │      asyncHandler.js
+│   │
+│   ├── middleware/
+│   │      authMiddleware.js
+│   │      roleMiddleware.js
+│   │      validateMiddleware.js
+│   │      errorMiddleware.js
+│   │      notFoundMiddleware.js
+│   │
+│   ├── repositories/
+│   │      userRepository.js
+│   │      productRepository.js
+│   │      refreshTokenRepository.js
+│   │
+│   ├── routes/
+│   │      authRoutes.js
+│   │      productRoutes.js
+│   │
+│   ├── services/
+│   │      authService.js
+│   │      productService.js
+│   │
+│   ├── utils/
+│   │      apiResponse.js
+│   │      generateToken.js
+│   │      generateRefreshToken.js
+│   │      cookieOptions.js
+│   │
+│   ├── validators/
+│   │      authValidator.js
+│   │      productValidator.js
+│   │
+│   ├── app.js
+│   └── server.js
+│
+├── .env
+├── package.json
+└── README.md
+
+
+| Package            | Purpose                             |
+| ------------------ | ----------------------------------- |
+| express            | Web framework                       |
+| pg                 | PostgreSQL driver                   |
+| bcrypt             | Password hashing                    |
+| jsonwebtoken       | JWT Access & Refresh Tokens         |
+| dotenv             | Environment variables               |
+| cors               | Cross-Origin Resource Sharing       |
+| cookie-parser      | Read HttpOnly cookies               |
+| helmet             | Security headers                    |
+| hpp                | HTTP Parameter Pollution protection |
+| compression        | Gzip responses                      |
+| express-rate-limit | Brute-force protection              |
+| express-validator  | Request validation                  |
+| morgan             | Request logging                     |
+| uuid               | Unique IDs when needed              |
+| nodemon            | Auto restart during development     |
+| eslint             | Code quality                        |
+
+npm install express pg bcrypt jsonwebtoken dotenv cors cookie-parser helmet hpp compression express-rate-limit express-validator morgan uuid
+
+npm install -D nodemon eslint
+
+POST 
+http://localhost:5000/api/auth/login
+
+{
+  "email": "admin@gmail.com",
+  "password": "admin123"
+}
+
+
+{
+  "success": true,
+  "message": "Login successful.",
+  "data": {
+    "user": {
+      "id": 1,
+      "full_name": "System Administrator",
+      "email": "admin@gmail.com",
+      "role": "ADMIN",
+      "is_active": true
+    },
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODQ1NDE1NDIsImV4cCI6MTc4NDU0MjQ0Mn0.XWRyvpZKGqaTr0tqehKUlmkJMhRWN4dg2eKycJ6URrs"
+  }
+}
+
+cookies
+refreshtoken
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzg0NTQxNTQyLCJleHAiOjE3ODUxNDYzNDJ9.4H8N-1FwbHRLa72wcoqrQ8Jpsbbqj8z44v8RX482qUU
+
+
+GET 
+http://localhost:5000/api/auth/profile
+In thunder client
+Auth-->Bearer-->token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODQ1NDE1NDIsImV4cCI6MTc4NDU0MjQ0Mn0.XWRyvpZKGqaTr0tqehKUlmkJMhRWN4dg2eKycJ6URrs
+
+
+{
+  "success": true,
+  "message": "Operation completed successfully.",
+  "data": {
+    "id": 1,
+    "full_name": "System Administrator",
+    "email": "admin@gmail.com",
+    "role": "ADMIN",
+    "is_active": true,
+    "created_at": "2026-07-20T01:45:41.658Z",
+    "updated_at": "2026-07-20T01:45:41.658Z"
+  }
+}
+
+
+PUT http://localhost:5000/api/auth/profile
+In thunder client
+Auth-->Bearer-->token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODQ1NDE1NDIsImV4cCI6MTc4NDU0MjQ0Mn0.XWRyvpZKGqaTr0tqehKUlmkJMhRWN4dg2eKycJ6URrs
+
+Body
+{
+    "fullName": "GV Naressh"
+}
+
+{
+  "success": true,
+  "message": "Profile updated successfully.",
+  "data": {
+    "id": 1,
+    "full_name": "GV Naressh",
+    "email": "admin@gmail.com",
+    "role": "ADMIN",
+    "is_active": true,
+    "created_at": "2026-07-20T01:45:41.658Z",
+    "updated_at": "2026-07-20T04:39:50.697Z"
+  }
+}
+
+----------------------------
+GET
+http://localhost:5000/api/auth/profile
+{
+  "success": true,
+  "message": "Operation completed successfully.",
+  "data": {
+    "id": 1,
+    "full_name": "GV Naressh",
+    "email": "admin@gmail.com",
+    "role": "ADMIN",
+    "is_active": true,
+    "created_at": "2026-07-20T01:45:41.658Z",
+    "updated_at": "2026-07-20T04:39:50.697Z"
+  }
+}
+
+
+
+Change Password
+
+This is one of the most important security features.
+
+FIRST Login
+{
+  "success": true,
+  "message": "Login successful.",
+  "data": {
+    "user": {
+      "id": 1,
+      "full_name": "GV Naressh",
+      "email": "admin@gmail.com",
+      "role": "ADMIN",
+      "is_active": true
+    },
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODQ1NDMyOTcsImV4cCI6MTc4NDU0NDE5N30.fUgR6cNPgu3OxR6ygQLaBbKj1Q0vPoRjLwQb_bc3ZWs"
+  }
+}
 
 
 
 
 
+Endpoint
+PUT 
+http://localhost:5000/api/auth/change-password
+Request Body
+{
+  "currentPassword": "admin123",
+  "newPassword": "Admin@12345"
+}
+
+
+In thunder client
+Auth-->Bearer-->token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODQ1NDMyOTcsImV4cCI6MTc4NDU0NDE5N30.fUgR6cNPgu3OxR6ygQLaBbKj1Q0vPoRjLwQb_bc3ZWs
 
 
 
+NOW LOGIN WITH NEW Password
+
+POST
+http://localhost:5000/api/auth/login
+{
+  "email": "admin@gmail.com",
+  "password": "Admin@12345"
+}
+
+
+{
+  "success": true,
+  "message": "Login successful.",
+  "data": {
+    "user": {
+      "id": 1,
+      "full_name": "GV Naressh",
+      "email": "admin@gmail.com",
+      "role": "ADMIN",
+      "is_active": true
+    },
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODQ1NDM1MjYsImV4cCI6MTc4NDU0NDQyNn0.BKb8Twl9aTRrkH34bmQ1xWboYZ0W__xIr9jOWmtkkt0"
+  }
+}
 
 
 
+---------------------------------------
+REFRESH-TOKEN TEST:
+------------------
+
+POST
+http://localhost:5000/api/auth/login
+{
+  "email": "admin@gmail.com",
+  "password": "Admin@12345"
+}
+
+
+{
+  "success": true,
+  "message": "Login successful.",
+  "data": {
+    "user": {
+      "id": 1,
+      "full_name": "GV Naressh",
+      "email": "admin@gmail.com",
+      "role": "ADMIN",
+      "is_active": true
+    },
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODQ1NDc5MDYsImV4cCI6MTc4NDU0ODgwNn0.Y9Rsw4ny3Z6HVLNtnd4nuwW9Yw7BForYGb4tiGxr0-0"
+  }
+}
+
+refreshtoken
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzg0NTQ3OTA2LCJleHAiOjE3ODUxNTI3MDZ9.O2dqof5ToSrxvE8pQGwG_I6DgxY3bbGUSB88zLp35wM
 
 
 
+Step 2
+
+Call:
+
+POST 
+http://localhost:5000/api/auth/refresh-token
+
+Don't send anything in the body.
+
+Just ensure Postman sends the cookie automatically.
+
+
+{
+  "success": true,
+  "message": "Token refreshed successfully.",
+  "data": {
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODQ1NDgxNDcsImV4cCI6MTc4NDU0OTA0N30.0gKPkhBwXLDJo0lrBzkPq16zEIRL8JBwOKjFpuEu2RQ"
+  }
+}
 
 
 
+LOGOUT TESTING:
+--------------
+POST
+http://localhost:5000/api/auth/login
+{
+  "email": "admin@gmail.com",
+  "password": "Admin@12345"
+}
+
+{
+  "success": true,
+  "message": "Login successful.",
+  "data": {
+    "user": {
+      "id": 1,
+      "full_name": "GV Naressh",
+      "email": "admin@gmail.com",
+      "role": "ADMIN",
+      "is_active": true
+    },
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODQ1NDgzNjYsImV4cCI6MTc4NDU0OTI2Nn0.XxwoAqXIroFbQhOaj3uy9Nh84gllXVevnPHZiOAxIsk"
+  }
+}
 
 
+POST 
+http://localhost:5000/api/auth/logout
+{
+  "success": true,
+  "message": "Logout successful.",
+  "data": null
+}
+
+
+LOGOUT FROM ALL DEVICES TEST:
+----------------------------
+http://localhost:5000/api/auth/login
+{
+  "email": "admin@gmail.com",
+  "password": "Admin@12345"
+}
+
+
+
+POST
+http://localhost:5000/api/auth/logout-all
+
+{
+  "success": true,
+  "message": "Logged out from all devices.",
+  "data": null
+}
+
+
+
+🎓 Authentication Module Completed
+| Feature                        | Status |
+| ------------------------------ | :----: |
+| Register                       |    ✅   |
+| Login                          |    ✅   |
+| Get Profile                    |    ✅   |
+| Update Profile                 |    ✅   |
+| Change Password                |    ✅   |
+| Refresh Token                  |    ✅   |
+| Refresh Token Rotation         |    ✅   |
+| Logout                         |    ✅   |
+| Logout All Devices             |    ✅   |
+| JWT Authentication             |    ✅   |
+| Role-Based Authorization       |    ✅   |
+| Password Hashing (bcrypt)      |    ✅   |
+| HttpOnly Refresh Token Cookies |    ✅   |
+| Repository Pattern             |    ✅   |
+| Service Layer                  |    ✅   |
+| Controller Layer               |    ✅   |
+| Global Error Handling          |    ✅   |
+| Validation                     |    ✅   |
 
 
 

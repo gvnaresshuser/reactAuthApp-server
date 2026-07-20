@@ -1,22 +1,3 @@
-CREATE TABLE refresh_tokens (
-
-    id SERIAL PRIMARY KEY,
-
-    user_id INTEGER NOT NULL,
-
-    token TEXT NOT NULL,
-
-    expires_at TIMESTAMP NOT NULL,
-
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT fk_refresh_user
-        FOREIGN KEY(user_id)
-        REFERENCES users(id)
-        ON DELETE CASCADE
-);
-
-
 -- ===========================================
 -- Drop Tables (Development Only)
 -- ===========================================
@@ -93,16 +74,3 @@ ON products(name);
 
 CREATE INDEX idx_products_category
 ON products(category);
-
-===============================================
-ALTER TABLE refresh_tokens
-ADD COLUMN device_name VARCHAR(255);
-
-ALTER TABLE refresh_tokens
-ADD COLUMN ip_address VARCHAR(100);
-
-ALTER TABLE refresh_tokens
-ADD COLUMN user_agent TEXT;
-
-ALTER TABLE refresh_tokens
-ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;

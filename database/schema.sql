@@ -1,36 +1,60 @@
--- ===========================================
--- Drop Tables (Development Only)
--- ===========================================
+-- =====================================================
+-- DROP TABLES (Development Only)
+-- =====================================================
 
+DROP TABLE IF EXISTS refresh_tokens CASCADE;
 DROP TABLE IF EXISTS products CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
--- ===========================================
--- Users Table
--- ===========================================
+-- =====================================================
+-- USERS TABLE
+-- =====================================================
 
 CREATE TABLE users (
+
     id SERIAL PRIMARY KEY,
 
     full_name VARCHAR(100) NOT NULL,
 
-    email VARCHAR(150) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
 
     password VARCHAR(255) NOT NULL,
 
-    role VARCHAR(20) DEFAULT 'USER'
-        CHECK(role IN ('ADMIN', 'USER')),
+    role VARCHAR(20) NOT NULL DEFAULT 'USER'
+        CHECK (role IN ('ADMIN', 'USER')),
 
-    is_active BOOLEAN DEFAULT TRUE,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- ===========================================
--- Products Table
--- ===========================================
+-- =====================================================
+-- REFRESH TOKENS
+-- =====================================================
+
+CREATE TABLE refresh_tokens (
+
+    id SERIAL PRIMARY KEY,
+
+    user_id INTEGER NOT NULL,
+
+    token TEXT NOT NULL,
+
+    expires_at TIMESTAMP NOT NULL,
+
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_refresh_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
+
+-- =====================================================
+-- PRODUCTS
+-- =====================================================
 
 CREATE TABLE products (
 
@@ -40,31 +64,29 @@ CREATE TABLE products (
 
     description TEXT,
 
-    price NUMERIC(10,2) NOT NULL
-        CHECK(price >= 0),
+    price NUMERIC(10,2) NOT NULL,
 
-    stock INTEGER DEFAULT 0
-        CHECK(stock >= 0),
+    stock INTEGER NOT NULL DEFAULT 0,
 
     category VARCHAR(100),
 
     image_url TEXT,
 
-    created_by INTEGER NOT NULL,
+    created_by INTEGER,
 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT fk_products_user
-        FOREIGN KEY(created_by)
+    CONSTRAINT fk_product_user
+        FOREIGN KEY (created_by)
         REFERENCES users(id)
-        ON DELETE CASCADE
+        ON DELETE SET NULL
 );
 
--- ===========================================
--- Useful Indexes
--- ===========================================
+-- =====================================================
+-- INDEXES
+-- =====================================================
 
 CREATE INDEX idx_users_email
 ON users(email);
@@ -74,3 +96,6 @@ ON products(name);
 
 CREATE INDEX idx_products_category
 ON products(category);
+
+CREATE INDEX idx_refresh_tokens_user
+ON refresh_tokens(user_id);
