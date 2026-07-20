@@ -170,3 +170,103 @@ git push -u origin main
 
 git add .
 git commit -m "Project setup, Neon database, schema and seed data completed"
+-----------------------------------------------------------------
+
+
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/gvnaresshuser/reactAuthApp-server.git
+git push -u origin main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+======================================================================
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>git init
+Initialized empty Git repository in E:/MURALI/REACT-JS-CRASH-COURSE/reactAuthApp-server/.git/
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>git add .
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>git commit -m "first commit"
+[master (root-commit) 8488623] first commit
+ 24 files changed, 2491 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 SCREENS/STEPS.txt
+ create mode 100644 app.js
+ create mode 100644 config/db.js
+ create mode 100644 config/jwt.js
+ create mode 100644 controllers/authController.js
+ create mode 100644 controllers/productController.js
+ create mode 100644 database/schema.sql
+ create mode 100644 database/seed.js
+ create mode 100644 database/seed.sql
+ create mode 100644 middleware/authMiddleware.js
+ create mode 100644 middleware/errorMiddleware.js
+ create mode 100644 middleware/validateMiddleware.js
+ create mode 100644 package-lock.json
+ create mode 100644 package.json
+ create mode 100644 routes/authRoutes.js
+ create mode 100644 routes/productRoutes.js
+ create mode 100644 server.js
+ create mode 100644 services/authService.js
+ create mode 100644 services/productService.js
+ create mode 100644 utils/generateRefreshToken.js
+ create mode 100644 utils/generateToken.js
+ create mode 100644 validators/authValidator.js
+ create mode 100644 validators/productValidator.js
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>git branch -M main
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>git remote add origin https://github.com/gvnaresshuser/reactAuthApp-server.git
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>git push -u origin main
+Enumerating objects: 21, done.
+Counting objects: 100% (21/21), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (18/18), done.
+Writing objects: 100% (21/21), 22.36 KiB | 2.48 MiB/s, done.
+Total 21 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/gvnaresshuser/reactAuthApp-server.git
+ * [new branch]      main -> main
+branch 'main' set up to track 'origin/main'.
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>
