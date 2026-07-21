@@ -19,8 +19,8 @@ export const createProductService = async (productData, userId) => {
 };
 
 // Get All Products
-export const getProductsService = async () => {
-  return await findAllProducts();
+export const getProductsService = async (search = "") => {
+  return await findAllProducts(search);
 };
 
 // Get Product By Id
@@ -58,5 +58,9 @@ export const deleteProductService = async (id) => {
     throw new Error(MESSAGES.PRODUCT_NOT_FOUND);
   }
 
-  await deleteProduct(id);
+  const deleted = await deleteProduct(id);
+
+  return deleted;
 };
+
+

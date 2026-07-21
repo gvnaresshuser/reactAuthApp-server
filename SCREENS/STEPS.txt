@@ -830,6 +830,7 @@ Body
 
 gvnaressh@gmail.com
 Naressh12578*
+changed to
 Naressh3695*
 
 
@@ -855,6 +856,67 @@ Excellent work!
 
 
 
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>tree src /F
+Folder PATH listing for volume DATA
+Volume serial number is 0ED0-D3D0
+E:\MURALI\REACT-JS-CRASH-COURSE\REACTAUTHAPP-SERVER\SRC
+│   app.js
+│   server.js
+│   test.js
+│
+├───config
+│       db.js
+│       jwt.js
+│       security.js
+│
+├───constants
+│       messages.js
+│       roles.js
+│
+├───controllers
+│       authController.js
+│       productController.js
+│
+├───helpers
+│       asyncHandler.js
+│
+├───middleware
+│       authMiddleware.js
+│       errorMiddleware.js
+│       notFoundMiddleware.js
+│       roleMiddleware.js
+│       validateMiddleware.js
+│
+├───repositories
+│       passwordResetRepository.js
+│       productRepository.js
+│       refreshTokenRepository.js
+│       userRepository.js
+│
+├───routes
+│       authRoutes.js
+│       productRoutes.js
+│
+├───services
+│       authService.js
+│       productService.js
+│
+├───utils
+│       apiResponse.js
+│       cookieOptions.js
+│       generateRefreshToken.js
+│       generateResetToken.js
+│       generateToken.js
+│       getTokenExpiryDate.js
+│       sendMail.js
+│       verifyRefreshToken.js
+│
+└───validators
+        authValidator.js
+        productValidator.js
+
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>
 
 
 
@@ -910,5 +972,61 @@ Total 21 (delta 0), reused 0 (delta 0), pack-reused 0
 To https://github.com/gvnaresshuser/reactAuthApp-server.git
  * [new branch]      main -> main
 branch 'main' set up to track 'origin/main'.
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>
+
+=======================================================
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>git add .
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   SCREENS/STEPS.txt
+        modified:   database/TABLES.txt
+        modified:   package-lock.json
+        modified:   package.json
+        modified:   src/app.js
+        modified:   src/constants/messages.js
+        modified:   src/controllers/authController.js
+        modified:   src/controllers/productController.js
+        new file:   src/repositories/passwordResetRepository.js
+        modified:   src/repositories/productRepository.js
+        modified:   src/routes/authRoutes.js
+        modified:   src/routes/productRoutes.js
+        modified:   src/services/authService.js
+        modified:   src/services/productService.js
+        new file:   src/test.js
+        new file:   src/utils/generateResetToken.js
+        new file:   src/utils/getTokenExpiryDate.js
+        new file:   src/utils/sendMail.js
+        modified:   src/validators/authValidator.js
+        modified:   src/validators/productValidator.js
+
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>git commit -m "21-07-2021-without products module"
+[main 9ea59da] 21-07-2021-without products module
+ 20 files changed, 966 insertions(+), 21 deletions(-)
+ create mode 100644 src/repositories/passwordResetRepository.js
+ create mode 100644 src/test.js
+ create mode 100644 src/utils/generateResetToken.js
+ create mode 100644 src/utils/getTokenExpiryDate.js
+ create mode 100644 src/utils/sendMail.js
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>git push
+Enumerating objects: 57, done.
+Counting objects: 100% (55/55), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (32/32), done.
+Writing objects: 100% (32/32), 9.71 KiB | 1.62 MiB/s, done.
+Total 32 (delta 14), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (14/14), completed with 14 local objects.
+To https://github.com/gvnaresshuser/reactAuthApp-server.git
+   ba1bb91..9ea59da  main -> main
 
 E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>

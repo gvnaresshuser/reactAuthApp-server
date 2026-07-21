@@ -44,13 +44,22 @@ export const findProductById = async (id) => {
 };
 
 // Find All Products
-export const findAllProducts = async () => {
+export const findAllProducts = async (search = "") => {
   const result = await pool.query(
     `
-        SELECT *
-        FROM products
-        ORDER BY created_at DESC
-        `,
+    SELECT
+      p.*,
+      u.full_name AS created_by_name
+    FROM products p
+    JOIN users u
+      ON u.id = p.created_by
+    WHERE
+      $1 = ''
+      OR p.name ILIKE '%' || $1 || '%'
+      OR p.category ILIKE '%' || $1 || '%'
+    ORDER BY p.created_at DESC;
+    `,
+    [search],
   );
 
   return result.rows;
@@ -82,12 +91,14 @@ export const updateProduct = async (id, productData) => {
 
 // Delete Product
 export const deleteProduct = async (id) => {
-  await pool.query(
+  const result = await pool.query(
     `
         DELETE
         FROM products
         WHERE id = $1
+        RETURNING *;
         `,
     [id],
   );
+  return result.rows[0];
 };
