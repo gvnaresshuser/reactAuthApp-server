@@ -585,12 +585,272 @@ http://localhost:5000/api/auth/logout-all
 
 
 
+PRODUCTS TESTING:
+-----------------
+GET
+http://localhost:5000/api/products
 
 
 
+GET
+http://localhost:5000/api/products/1
+{
+  "success": true,
+  "message": "Product fetched successfully.",
+  "data": {
+    "id": 1,
+    "name": "Apple iPhone 16",
+    "description": "Latest Apple smartphone",
+    "price": "79999.00",
+    "stock": 25,
+    "category": "Mobiles",
+    "image_url": "https://dummyimage.com/iphone16",
+    "created_by": 1,
+    "created_at": "2026-07-20T01:45:41.658Z",
+    "updated_at": "2026-07-20T01:45:41.658Z"
+  }
+}
+---------------------------
+POST
+http://localhost:5000/api/auth/login
+{
+  "email": "admin@gmail.com",
+  "password": "Admin@12345"
+}
+--------------
+{
+  "success": true,
+  "message": "Login successful.",
+  "data": {
+    "user": {
+      "id": 1,
+      "full_name": "GV Naressh",
+      "email": "admin@gmail.com",
+      "role": "ADMIN",
+      "is_active": true
+    },
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3ODQ1NTMzNTYsImV4cCI6MTc4NDU1NDI1Nn0.dMCz3Vak0fYikQmwzoBfeLNu_sQERKfYWqQW6tWE4p8"
+  }
+}
+--------------
+
+POST
+http://localhost:5000/api/products
+{
+  "name": "Boat Speaker",
+  "description": "Portable Bluetooth Speaker",
+  "price": 4999,
+  "stock": 20,
+  "category": "Electronics",
+  "image_url": "https://dummyimage.com/speaker"
+}
+
+{
+  "success": true,
+  "message": "Product created successfully.",
+  "data": {
+    "id": 6,
+    "name": "Boat Speaker",
+    "description": "Portable Bluetooth Speaker",
+    "price": "4999.00",
+    "stock": 20,
+    "category": "Electronics",
+    "image_url": "https://dummyimage.com/speaker",
+    "created_by": 1,
+    "created_at": "2026-07-20T07:46:29.436Z",
+    "updated_at": "2026-07-20T07:46:29.436Z"
+  }
+}
+
+PUT
+http://localhost:5000/api/products/6
+{
+  "price": "79999.00"
+}
+{
+  "success": true,
+  "message": "Product updated successfully.",
+  "data": {
+    "id": 6,
+    "name": "Boat Speaker",
+    "description": "Portable Bluetooth Speaker",
+    "price": "79999.00",
+    "stock": 20,
+    "category": "Electronics",
+    "image_url": "https://dummyimage.com/speaker",
+    "created_by": 1,
+    "created_at": "2026-07-20T07:46:29.436Z",
+    "updated_at": "2026-07-20T07:52:08.054Z"
+  }
+}
+
+DELETE PRODUCT TESTING:
+----------------------
+POST
+http://localhost:5000/api/products
+{
+  "name": "Test",
+  "description": "Test",
+  "price": 1000,
+  "stock": 10,
+  "category": "Electronics",
+  "image_url": "https://dummyimage.com/speaker"
+}
+{
+  "success": true,
+  "message": "Product created successfully.",
+  "data": {
+    "id": 7,
+    "name": "Test",
+    "description": "Test",
+    "price": "1000.00",
+    "stock": 10,
+    "category": "Electronics",
+    "image_url": "https://dummyimage.com/speaker",
+    "created_by": 1,
+    "created_at": "2026-07-20T07:54:14.536Z",
+    "updated_at": "2026-07-20T07:54:14.536Z"
+  }
+}
+
+DELETE 
+http://localhost:5000/api/products/7
+{
+  "success": true,
+  "message": "Product deleted successfully.",
+  "data": null
+}
 
 
 
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server\src>node test.js
+{
+  token: 'dc4e6df1cb4cde2ab430cfb0e5de280029fde2669e1d9d112556070b8e969ddc',
+  tokenHash: '$2b$12$RAzWfYw5tEx2AgzlGVUuQOrSGIPEjg6aD8i1hHmxpVT4J09tdVe4u',
+  expiresAt: 2026-07-21T03:36:04.308Z
+}
+
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server\src>
+
+FORGOT PASSWORD TEST:
+--------------------
+POST
+http://localhost:5000/api/auth/forgot-password
+Body
+{
+    "email":"test@test.com"
+}
+
+{
+  "success": true,
+  "message": "If an account exists with this email, a password reset link has been sent.",
+  "data": null
+}
+
+
+SELECT * FROM password_reset_tokens;
+[{
+  "id": 1,
+  "user_id": 3,
+  "token_hash": "$2b$12$ip1U13CvIbeWw4G35Ko.reb7FY3Bd8MUOBaPjdKslqdvWZy2as0wu",
+  "expires_at": "2026-07-21 09:10:18.511",
+  "created_at": "2026-07-21 03:25:18.674775"
+}]
+
+NODEMAILER:
+-----------
+We'll implement using Nodemailer
+
+We'll create:
+
+src/
+    utils/
+        sendMail.js
+
+Install:
+
+npm install nodemailer
+
+Then we'll configure Gmail (or another SMTP provider) using environment variables like:
+
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_EMAIL=your-email@gmail.com
+SMTP_PASSWORD=your-app-password
+
+
+# SMTP settings for Gmail
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_SECURE=false  # STARTTLS = false for secure in Nodemailer
+EMAIL_USER=gvnaressh@gmail.com
+EMAIL_PASS=nlhvhyxqgqtaqeiz
+#https://myaccount.google.com/apppasswords
+#RESTART SERVER AFTER CHANGING .env FILE injviwcfnjgpheko
+#nlhv hyxq gqta qeiz
+#nlhvhyxqgqtaqeiz
+
+Finally, we'll replace:
+
+console.log(token);
+
+with:
+
+await sendMail(
+  user.email,
+  "Password Reset",
+  htmlTemplate
+);
+
+
+USER:: {
+  id: 2,
+  full_name: 'Naressh GV',
+  email: 'gvnaressh@gmail.com',
+  password: '$2b$12$d2urFABmoA8aVwbLIzYGM.UM92Kx6fknxEm9vDUJLkY.744LkTUdC',
+  role: 'USER',
+  is_active: true,
+  created_at: 2026-07-20T21:32:40.784Z,
+  updated_at: 2026-07-20T21:32:40.784Z
+}
+http://localhost:5173/reset-password/d54b4e473ab6e7b9cce74ee6ef29acf6e5015f0677f6364eb9227a3564831581
+POST /api/auth/forgot-password 200 8556.153 ms - 115
+
+
+Step 6.5 Test
+POST
+http://localhost:5000/api/auth/reset-password
+
+Body
+
+{
+    "token":"d54b4e473ab6e7b9cce74ee6ef29acf6e5015f0677f6364eb9227a3564831581",
+    "newPassword":"React@123"
+}
+
+gvnaressh@gmail.com
+Naressh12578*
+Naressh3695*
+
+
+Abhhay Uzwall
+venkatdada369@gmail.com
+Uzwall12578*
+changed to
+Uzwall3695*
+
+
+
+GMAIL USERID AND PASSWORD
+venkatdada369@gmail.com
+Gvnaressh3695
+
+
+A great stopping point
+
+This authentication module is now in a strong state. Before moving on to products, orders, or other modules, it's a good idea to keep this version as a stable checkpoint (for example, by creating a Git commit). That way you have a clean, working authentication baseline you can return to if needed.
+
+Excellent work!
 
 
 

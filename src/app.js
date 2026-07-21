@@ -9,6 +9,7 @@ import authRoutes from "./routes/authRoutes.js";
 
 import notFoundMiddleware from "./middleware/notFoundMiddleware.js";
 import errorMiddleware from "./middleware/errorMiddleware.js";
+import productRoutes from "./routes/productRoutes.js";
 
 const app = express();
 
@@ -29,10 +30,10 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
-
     credentials: true,
   }),
 );
+app.use("/api/products", productRoutes);
 
 /**
  * Health Check

@@ -43,4 +43,20 @@ export const MESSAGES = Object.freeze({
   TOKEN_REFRESHED: "Token refreshed successfully.",
 
   LOGOUT_SUCCESS: "Logout successful.",
+
+  USER_NOT_FOUND: "User not found.",
+  INVALID_CREDENTIALS: "Invalid email or password.",
+  LOGIN_SUCCESS: "Login successful.",
+
+  // Product
+  PRODUCT_NOT_FOUND: "Product not found.",
+  PRODUCT_CREATED: "Product created successfully.",
+  PRODUCT_UPDATED: "Product updated successfully.",
+  PRODUCT_DELETED: "Product deleted successfully.",
+  PRODUCTS_FETCHED: "Products fetched successfully.",
+  PRODUCT_FETCHED: "Product fetched successfully.",
+
+  RESET_TOKEN_INVALID_OR_EXPIRED: "Invalid or expired reset token.",
 });
+
+

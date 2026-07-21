@@ -64,3 +64,30 @@ export const changePasswordValidator = [
     .isLength({ min: 8 })
     .withMessage("Password must be at least 8 characters."),
 ];
+
+export const forgotPasswordValidator = [
+  body("email")
+    .trim()
+    .notEmpty()
+    .withMessage("Email is required.")
+    .isEmail()
+    .withMessage("Please enter a valid email address.")
+    .normalizeEmail(),
+];
+export const resetPasswordValidator = [
+  body("token").trim().notEmpty().withMessage("Reset token is required."),
+
+  body("newPassword")
+    .notEmpty()
+    .withMessage("Password is required.")
+    .isStrongPassword({
+      minLength: 8,
+      minLowercase: 1,
+      minUppercase: 1,
+      minNumbers: 1,
+      minSymbols: 1,
+    })
+    .withMessage(
+      "Password must contain at least 8 characters including uppercase, lowercase, number and special character.",
+    ),
+];

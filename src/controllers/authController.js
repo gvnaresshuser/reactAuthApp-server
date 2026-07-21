@@ -14,7 +14,8 @@ import {
 import { successResponse } from "../utils/apiResponse.js";
 import { MESSAGES } from "../constants/messages.js";
 import cookieOptions from "../utils/cookieOptions.js";
-
+import { forgotPasswordService } from "../services/authService.js";
+import { resetPasswordService } from "../services/authService.js";
 export const register = asyncHandler(async (req, res) => {
   const { fullName, email, password } = req.body;
   const user = await registerService(fullName, email, password);
@@ -90,4 +91,33 @@ export const logoutAllDevices = asyncHandler(async (req, res) => {
   res.clearCookie(process.env.COOKIE_NAME, cookieOptions);
 
   return successResponse(res, 200, "Logged out from all devices.");
+});
+/**
+ * Forgot Password
+ */
+
+export const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  await forgotPasswordService(email);
+
+  return successResponse(
+    res,
+    200,
+    "If an account exists with this email, a password reset link has been sent."
+  );
+});
+/**
+ * Reset Password
+ */
+export const resetPassword = asyncHandler(async (req, res) => {
+  const { token, newPassword } = req.body;
+
+  await resetPasswordService(token, newPassword);
+
+  return successResponse(
+    res,
+    200,
+    "Password has been reset successfully."
+  );
 });

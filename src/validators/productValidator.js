@@ -1,9 +1,9 @@
 import { body } from "express-validator";
 
 /**
- * Create Product Validator
+ * Create Product Validation
  */
-export const createProductValidator = [
+export const createProductValidation = [
   body("name")
     .trim()
     .notEmpty()
@@ -12,9 +12,8 @@ export const createProductValidator = [
     .withMessage("Product name must be between 2 and 150 characters."),
 
   body("description")
+    .optional()
     .trim()
-    .notEmpty()
-    .withMessage("Description is required.")
     .isLength({ min: 10, max: 1000 })
     .withMessage("Description must be between 10 and 1000 characters."),
 
@@ -37,13 +36,17 @@ export const createProductValidator = [
     .isLength({ min: 2, max: 100 })
     .withMessage("Category must be between 2 and 100 characters."),
 
-  body("imageUrl").optional().isURL().withMessage("Image URL must be valid."),
+  body("image_url")
+    .optional()
+    .trim()
+    .isURL()
+    .withMessage("Image URL must be valid."),
 ];
 
 /**
- * Update Product Validator
+ * Update Product Validation
  */
-export const updateProductValidator = [
+export const updateProductValidation = [
   body("name")
     .optional()
     .trim()
@@ -72,5 +75,9 @@ export const updateProductValidator = [
     .isLength({ min: 2, max: 100 })
     .withMessage("Category must be between 2 and 100 characters."),
 
-  body("imageUrl").optional().isURL().withMessage("Image URL must be valid."),
+  body("image_url")
+    .optional()
+    .trim()
+    .isURL()
+    .withMessage("Image URL must be valid."),
 ];
