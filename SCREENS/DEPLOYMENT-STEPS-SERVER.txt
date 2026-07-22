@@ -1,0 +1,155 @@
+LIVE SERVER URL:
+----------------
+https://reactauthapp-server.onrender.com
+
+
+https://github.com/gvnaresshuser/reactAuthApp-client.git
+
+
+https://github.com/gvnaresshuser/reactAuthApp-server.git
+
+
+
+reactAuthApp-client
+reactAuthApp-server
+
+https://dashboard.render.com/login
+Google login
+gvnaressh@gmail.com
+
+New
+Web Service
+Public git repository
+https://github.com/gvnaresshuser/reactAuthApp-server.git
+CONNECT
+
+Runtime:Node
+Build Command: npm install
+Start Command: node src/server.js
+
+For hobby projects
+Free
+
+PORT=5000
+DATABASE_URL=postgresql://neondb_owner:npg_5UgQJnAsfRw1@ep-nameless-resonance-aulf1smd-pooler.c-10.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+NODE_ENV=development
+FRONTEND_URL=http://localhost:5173
+JWT_ACCESS_SECRET=n7qTXembLPbrFiTRQ6o7Uss5Wmws1NphKIdLN7lKeDX
+JWT_REFRESH_SECRET=VGx8ca36cn8EvoyOZMkviqjRbBdBnMF33FRTMWGyrTN
+ACCESS_TOKEN_EXPIRY=15m
+REFRESH_TOKEN_EXPIRY=7d
+COOKIE_NAME=refreshToken
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_EMAIL=gvnaressh@gmail.com
+SMTP_PASSWORD=nlhvhyxqgqtaqeiz
+
+LIVE SERVER URL:
+----------------
+https://reactauthapp-server.onrender.com
+{
+  "success": true,
+  "message": "API Running Successfully"
+}
+
+
+
+https://reactauthapp-server.onrender.com/api/products
+
+{
+  "success": true,
+  "message": "Products fetched successfully.",
+  "data": [
+    {
+      "id": 8,
+      "name": "Wireless Mouse",
+      "description": "Nice to use mouse without wire.",
+      "price": "1500.00",
+      "stock": 20,
+      "category": "Electronics",
+      "image_url": "https://www.portronics.com/cdn/shop/files/Toad321500X1500Blue1.jpg?v=1699100039",
+      "created_by": 2,
+      "created_at": "2026-07-21T07:35:41.863Z",
+      "updated_at": "2026-07-21T07:35:55.497Z",
+      "created_by_name": "Naressh GV"
+    },
+    {
+      "id": 6,
+      "name": "Boat Speaker",
+      "description": "Portable Bluetooth Speaker",
+      "price": "79999.00",
+      "stock": 20,
+      "category": "Electronics",
+      "image_url": "https://m.media-amazon.com/images/I/81ocVi-mglL.jpg",
+      "created_by": 1,
+      "created_at": "2026-07-20T13:16:29.436Z",
+      "updated_at": "2026-07-21T07:12:47.806Z",
+      "created_by_name": "GV Naressh"
+    },
+    {
+      "id": 2,
+      "name": "Samsung Galaxy S25",
+      "description": "Flagship Android Phone",
+      "price": "74999.00",
+      "stock": 30,
+      "category": "Electronics",
+      "image_url": "https://rukminim2.flixcart.com/image/480/640/xif0q/mobile/s/k/z/-original-imahggexgfcf3hpf.jpeg?q=90",
+      "created_by": 1,
+      "created_at": "2026-07-20T07:15:41.658Z",
+      "updated_at": "2026-07-21T07:15:53.461Z",
+      "created_by_name": "GV Naressh"
+    },
+    {
+      "id": 4,
+      "name": "Dell Laptop",
+      "description": "Intel Core Ultra Laptop",
+      "price": "89999.00",
+      "stock": 10,
+      "category": "Electronics",
+      "image_url": "https://5.imimg.com/data5/DS/EU/MY-38697753/dell-laptops.jpeg",
+      "created_by": 1,
+      "created_at": "2026-07-20T07:15:41.658Z",
+      "updated_at": "2026-07-21T07:16:58.382Z",
+      "created_by_name": "GV Naressh"
+    },
+    {
+      "id": 5,
+      "name": "Apple Watch",
+      "description": "Series Smart Watch",
+      "price": "45999.00",
+      "stock": 18,
+      "category": "Electronics",
+      "image_url": "https://m.media-amazon.com/images/I/71UenT9AO6L._AC_UF1000,1000_QL80_.jpg",
+      "created_by": 1,
+      "created_at": "2026-07-20T07:15:41.658Z",
+      "updated_at": "2026-07-21T07:24:17.311Z",
+      "created_by_name": "GV Naressh"
+    },
+    {
+      "id": 3,
+      "name": "Sony Headphones",
+      "description": "Noise Cancelling Headphones",
+      "price": "14999.00",
+      "stock": 15,
+      "category": "Electronics",
+      "image_url": "https://png.pngtree.com/png-clipart/20240428/original/pngtree-sony-headphones-on-transparent-generated-ai-png-image_14964793.png",
+      "created_by": 1,
+      "created_at": "2026-07-20T07:15:41.658Z",
+      "updated_at": "2026-07-21T07:16:21.700Z",
+      "created_by_name": "GV Naressh"
+    },
+    {
+      "id": 1,
+      "name": "Apple iPhone 16",
+      "description": "Latest Apple smartphone",
+      "price": "79999.00",
+      "stock": 25,
+      "category": "Electronics",
+      "image_url": "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/article/Apple-iPhone-16-Pro-hero-geo-240909_inline.jpg.large.jpg",
+      "created_by": 1,
+      "created_at": "2026-07-20T07:15:41.658Z",
+      "updated_at": "2026-07-21T07:15:18.280Z",
+      "created_by_name": "GV Naressh"
+    }
+  ]
+}

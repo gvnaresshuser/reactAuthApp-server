@@ -18,15 +18,10 @@ const app = express();
  */
 
 app.use(helmet());
-
 app.use(compression());
-
 app.use(morgan("dev"));
-
 app.use(express.json());
-
 app.use(cookieParser());
-
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
@@ -34,11 +29,9 @@ app.use(
   }),
 );
 app.use("/api/products", productRoutes);
-
 /**
  * Health Check
  */
-
 app.get("/", (req, res) => {
   res.json({
     success: true,
@@ -46,7 +39,6 @@ app.get("/", (req, res) => {
     message: "API Running Successfully",
   });
 });
-
 /**
  * Routes
  */
@@ -56,17 +48,13 @@ app.use(
 
   authRoutes,
 );
-
 /**
  * 404 Middleware
  */
 
 app.use(notFoundMiddleware);
-
 /**
  * Global Error Middleware
  */
-
 app.use(errorMiddleware);
-
 export default app;

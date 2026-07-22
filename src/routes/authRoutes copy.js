@@ -22,34 +22,40 @@ import { resetPassword } from "../controllers/authController.js";
 /**
  * Authentication Routes
  */
-// Public
+
 router.post("/register", registerValidator, validateMiddleware, register);
 router.post("/login", loginValidator, validateMiddleware, login);
-router.post("/forgot-password", forgotPasswordValidator, validateMiddleware, forgotPassword);
-router.post("/reset-password", resetPasswordValidator, validateMiddleware, resetPassword);
-router.post("/refresh-token", refreshToken);
-
-// Everything below requires authentication
-router.use(authMiddleware);
-
-router.get("/profile", profile);
-
+router.get("/profile", authMiddleware, profile);
 router.put(
   "/profile",
+  authMiddleware,
   updateProfileValidator,
   validateMiddleware,
   updateProfile,
 );
-
 router.put(
   "/change-password",
+  authMiddleware,
   changePasswordValidator,
   validateMiddleware,
   changePassword,
 );
-
+router.post(
+  "/forgot-password",
+  forgotPasswordValidator,
+  validateMiddleware,
+  forgotPassword,
+);
+router.post(
+  "/reset-password",
+  resetPasswordValidator,
+  validateMiddleware,
+  resetPassword,
+);
+router.post("/refresh-token", refreshToken);
 router.post("/logout", logout);
-router.post("/logout-all", logoutAllDevices);
+router.post("/logout-all", authMiddleware, logoutAllDevices);
+
 
 
 export default router;
