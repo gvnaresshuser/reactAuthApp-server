@@ -74,7 +74,7 @@ export const findRefreshTokensByUserId = async (userId) => {
 /*************************************************
  * Delete Expired Refresh Tokens
  *************************************************/
-export const deleteExpiredRefreshTokens = async () => {
+/* export const deleteExpiredRefreshTokens = async () => {
   await pool.query(
     `
     DELETE
@@ -82,4 +82,66 @@ export const deleteExpiredRefreshTokens = async () => {
     WHERE expires_at <= CURRENT_TIMESTAMP
     `,
   );
+}; */
+export const deleteExpiredRefreshTokens = async () => {
+  const before = await pool.query(`
+    SELECT
+      id,
+      expires_at,
+      CURRENT_TIMESTAMP AS db_time
+    FROM refresh_tokens
+    ORDER BY id;
+  `);
+
+  console.log("Before Delete");
+  console.table(before.rows);
+
+  const now = await pool.query(`
+    SELECT
+        CURRENT_TIMESTAMP,
+        LOCALTIMESTAMP
+`);
+
+  console.log(now.rows);
+
+  const result = await pool.query(`
+    DELETE
+    FROM refresh_tokens
+    WHERE expires_at <= CURRENT_TIMESTAMP
+  `);
+
+  console.log("Deleted Rows:", result.rowCount);
+
+  const after = await pool.query(`
+    SELECT
+      id,
+      expires_at,
+      CURRENT_TIMESTAMP AS db_time
+    FROM refresh_tokens
+    ORDER BY id;
+  `);
+
+  console.log("After Delete");
+  console.table(after.rows);
+};
+
+export const deleteExpiredRefreshTokensByUserId = async (userId) => {
+  const query = `
+    DELETE
+    FROM refresh_tokens
+    WHERE user_id = $1
+      AND expires_at <= CURRENT_TIMESTAMP
+    RETURNING id;
+  `;
+
+  const { rows, rowCount } = await pool.query(query, [userId]);
+
+  console.log(
+    `Deleted ${rowCount} expired refresh token(s) for User ${userId}`,
+  );
+
+  return {
+    deletedCount: rowCount,
+    deletedTokens: rows,
+  };
 };

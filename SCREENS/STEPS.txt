@@ -1031,6 +1031,8 @@ To https://github.com/gvnaresshuser/reactAuthApp-server.git
 
 E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+=======================================================================================
+=======================================================================================
 
 E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>git add .
 
@@ -1040,26 +1042,44 @@ Your branch is up to date with 'origin/main'.
 
 Changes to be committed:
   (use "git restore --staged <file>..." to unstage)
+        new file:   SCREENS/DEPLOYMENT-1.png
+        new file:   SCREENS/DEPLOYMENT-2.png
+        new file:   SCREENS/DEPLOYMENT-3.png
+        new file:   SCREENS/DEPLOYMENT-4.png
+        new file:   SCREENS/DEPLOYMENT-5.png
+        new file:   SCREENS/DEPLOYMENT-6.png
+        new file:   SCREENS/DEPLOYMENT-STEPS-SERVER.txt
         modified:   SCREENS/STEPS.txt
-        modified:   src/controllers/productController.js
-        modified:   src/repositories/productRepository.js
+        modified:   src/app.js
+        modified:   src/config/db.js
+        new file:   src/routes/authRoutes copy.js
+        modified:   src/routes/authRoutes.js
         modified:   src/routes/productRoutes.js
-        modified:   src/services/productService.js
 
 
-E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>git commit -m "Backend Complete"
-[main e8e2022] Backend Complete
- 5 files changed, 147 insertions(+), 20 deletions(-)
+E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>git commit -m "access token and refresh token repaired"
+[main d6be763] access token and refresh token repaired
+ 13 files changed, 264 insertions(+), 48 deletions(-)
+ create mode 100644 SCREENS/DEPLOYMENT-1.png
+ create mode 100644 SCREENS/DEPLOYMENT-2.png
+ create mode 100644 SCREENS/DEPLOYMENT-3.png
+ create mode 100644 SCREENS/DEPLOYMENT-4.png
+ create mode 100644 SCREENS/DEPLOYMENT-5.png
+ create mode 100644 SCREENS/DEPLOYMENT-6.png
+ create mode 100644 SCREENS/DEPLOYMENT-STEPS-SERVER.txt
+ create mode 100644 src/routes/authRoutes copy.js
 
 E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>git push
-Enumerating objects: 25, done.
-Counting objects: 100% (25/25), done.
+Enumerating objects: 28, done.
+Counting objects: 100% (28/28), done.
 Delta compression using up to 8 threads
-Compressing objects: 100% (13/13), done.
-Writing objects: 100% (13/13), 2.37 KiB | 810.00 KiB/s, done.
-Total 13 (delta 10), reused 0 (delta 0), pack-reused 0
-remote: Resolving deltas: 100% (10/10), completed with 10 local objects.
+Compressing objects: 100% (18/18), done.
+Writing objects: 100% (18/18), 691.51 KiB | 16.87 MiB/s, done.
+Total 18 (delta 7), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (7/7), completed with 7 local objects.
 To https://github.com/gvnaresshuser/reactAuthApp-server.git
-   9ea59da..e8e2022  main -> main
+   e8e2022..d6be763  main -> main
 
 E:\MURALI\REACT-JS-CRASH-COURSE\reactAuthApp-server>
+=======================================================================================
+=======================================================================================

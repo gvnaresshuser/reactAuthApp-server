@@ -63,6 +63,10 @@ export const changePassword = asyncHandler(async (req, res) => {
  * Refresh Access Token
  */
 export const refreshToken = asyncHandler(async (req, res) => {
+
+      console.log("Cookies:", req.cookies);
+
+      console.log("Refresh Cookie:", req.cookies[process.env.COOKIE_NAME]);
   const refreshTokenCookie = req.cookies[process.env.COOKIE_NAME];
 
   const result = await refreshTokenService(refreshTokenCookie);

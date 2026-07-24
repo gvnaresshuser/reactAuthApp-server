@@ -18,7 +18,6 @@ import {
   findRefreshTokensByUserId,
   deleteRefreshToken,
   deleteExpiredRefreshTokens,
-  deleteExpiredRefreshTokensByUserId,
 } from "../repositories/refreshTokenRepository.js";
 import SALT_ROUNDS from "../config/security.js";
 import jwt from "jsonwebtoken";
@@ -78,28 +77,21 @@ export const loginService = async (email, password) => {
   if (!isPasswordValid) {
     throw new Error(MESSAGES.INVALID_CREDENTIALS);
   }
-
-  // Remove expired refresh tokens for this user
-  await deleteExpiredRefreshTokensByUserId(user.id);
-
-  // Generate tokens...
-  console.log("Generate tokens...");
-
   const accessToken = generateToken(user);
   const refreshToken = generateRefreshToken(user);
   const refreshTokenHash = await bcrypt.hash(refreshToken, SALT_ROUNDS);
   ////const expiresAt = new Date();
   //const days = parseInt(process.env.REFRESH_TOKEN_EXPIRY, 10) || 7;
   //expiresAt.setDate(expiresAt.getDate() + days);
-
+  
   ////const expiresAt = getTokenExpiryDate(process.env.REFRESH_TOKEN_EXPIRY);
-  console.log("Now:", new Date().toString());
-  console.log("Now ISO:", new Date().toISOString());
+console.log("Now:", new Date().toString());
+console.log("Now ISO:", new Date().toISOString());
 
-  const expiresAt = getTokenExpiryDate(process.env.REFRESH_TOKEN_EXPIRY);
+const expiresAt = getTokenExpiryDate(process.env.REFRESH_TOKEN_EXPIRY);
 
-  console.log("Expires:", expiresAt.toString());
-  console.log("Expires ISO:", expiresAt.toISOString());
+console.log("Expires:", expiresAt.toString());
+console.log("Expires ISO:", expiresAt.toISOString());
   await createRefreshToken(user.id, refreshTokenHash, expiresAt);
   const userInfo = {
     id: user.id,
@@ -166,7 +158,7 @@ export const changePasswordService = async (userId, body) => {
   await deleteAllRefreshTokens(userId);
   return;
 };
-/* export const refreshTokenService = async (refreshToken) => {
+export const refreshTokenService = async (refreshToken) => {
    console.log("SERVICE START");
 
    console.log("Token:", refreshToken);
@@ -194,7 +186,7 @@ export const changePasswordService = async (userId, body) => {
       console.log("JWT Message:", err.message);
       console.log("**************");
 
-    if (err.name === "TokenExpiredError") {
+   /*  if (err.name === "TokenExpiredError") {
       const decoded = jwt.decode(refreshToken);
 
       console.log("Decoded:", decoded);
@@ -220,7 +212,7 @@ export const changePasswordService = async (userId, body) => {
           }
         }
       }
-    }
+    } */
 
     throw new Error(MESSAGES.UNAUTHORIZED);
   }
@@ -299,120 +291,7 @@ console.log("Deleted Successfully");
     accessToken,
     refreshToken: newRefreshToken,
   };
-}; */
-
-export const refreshTokenService = async (refreshToken) => {
-  console.log("SERVICE START");
-
-  if (!refreshToken) {
-    throw new Error(MESSAGES.UNAUTHORIZED);
-  }
-
-  console.log("=================================");
-  console.log("Incoming Refresh Token");
-  console.log(refreshToken);
-
-  let payload;
-
-  try {
-    // Verify JWT Signature & Expiry
-    payload = verifyRefreshToken(refreshToken);
-  } catch (err) {
-    console.log("JWT Error:", err.name);
-    console.log("JWT Message:", err.message);
-
-    if (err.name === "TokenExpiredError") {
-      const decoded = jwt.decode(refreshToken);
-
-      console.log("Decoded:", decoded);
-
-      if (decoded?.id) {
-        const tokens = await findRefreshTokensByUserId(decoded.id);
-
-        console.log("Tokens in DB:", tokens.length);
-
-        for (const token of tokens) {
-          const isMatch = await bcrypt.compare(refreshToken, token.token);
-
-          if (isMatch) {
-            console.log("Deleting Expired Token:", token.id);
-
-            await deleteRefreshToken(token.id);
-
-            console.log("Expired Token Deleted");
-
-            break;
-          }
-        }
-      }
-    }
-
-    throw new Error(MESSAGES.UNAUTHORIZED);
-  }
-
-  // Optional housekeeping
-  await deleteExpiredRefreshTokens();
-
-  // Find user
-  const user = await findUserById(payload.id);
-
-  if (!user) {
-    throw new Error(MESSAGES.USER_NOT_FOUND);
-  }
-
-  // Find matching refresh token
-  const tokens = await findRefreshTokensByUserId(user.id);
-
-  console.log("Tokens in DB:", tokens.length);
-
-  let matchedToken = null;
-
-  for (const token of tokens) {
-    console.log("---------------------------");
-    console.log("DB Token ID:", token.id);
-    console.log("DB Expires:", token.expires_at);
-
-    const isMatch = await bcrypt.compare(refreshToken, token.token);
-
-    console.log("Match:", isMatch);
-
-    if (isMatch) {
-      matchedToken = token;
-      break;
-    }
-  }
-
-  if (!matchedToken) {
-    throw new Error(MESSAGES.UNAUTHORIZED);
-  }
-
-  // Refresh Token Rotation
-  console.log("Deleting:", matchedToken.id);
-
-  await deleteRefreshToken(matchedToken.id);
-
-  console.log("Deleted Successfully");
-
-  // Generate new tokens
-  const accessToken = generateToken(user);
-  const newRefreshToken = generateRefreshToken(user);
-
-  // Hash refresh token
-  const refreshHash = await bcrypt.hash(newRefreshToken, SALT_ROUNDS);
-
-  const expiresAt = getTokenExpiryDate(process.env.REFRESH_TOKEN_EXPIRY);
-
-  console.log("Expires At:", expiresAt);
-
-  await createRefreshToken(user.id, refreshHash, expiresAt);
-
-  return {
-    accessToken,
-    refreshToken: newRefreshToken,
-  };
 };
-
-
 export const logoutService = async (refreshToken) => {
   if (!refreshToken) {
     return;

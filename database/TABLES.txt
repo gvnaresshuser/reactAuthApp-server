@@ -1,3 +1,4 @@
+/*
 CREATE TABLE refresh_tokens (
 
     id SERIAL PRIMARY KEY,
@@ -15,8 +16,41 @@ CREATE TABLE refresh_tokens (
         REFERENCES users(id)
         ON DELETE CASCADE
 );
+*/
+DROP TABLE IF EXISTS refresh_tokens CASCADE;
 
+CREATE TABLE refresh_tokens
+(
+    id SERIAL PRIMARY KEY,
 
+    user_id INTEGER NOT NULL,
+
+    token TEXT NOT NULL,
+
+    expires_at TIMESTAMPTZ NOT NULL,
+
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    device_name VARCHAR(255),
+
+    ip_address VARCHAR(100),
+
+    user_agent TEXT,
+
+    CONSTRAINT fk_refresh_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
+
+-- Useful indexes
+CREATE INDEX idx_refresh_user_id
+ON refresh_tokens(user_id);
+
+CREATE INDEX idx_refresh_expires_at
+ON refresh_tokens(expires_at);
 -- ===========================================
 -- Drop Tables (Development Only)
 -- ===========================================
